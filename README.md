@@ -1,6 +1,6 @@
 # vibe-template
 
-`vibe-template` currently ships as a Cloudflare Worker application served with Wrangler, implemented in JavaScript/TypeScript, and centered on server-rendered HTML with a small JSON API stub.
+`vibe-template` currently ships as a Cloudflare Worker application served with Wrangler, implemented in JavaScript/TypeScript, and centered on server-rendered HTML with a small multiplayer raffle room.
 
 This is a template for my vibecoding projects and it captures what I consider my best practices so I don't have to repeat them for each experiment.
 
@@ -25,7 +25,8 @@ Local development in this repo targets macOS. Other platforms may need script an
 - npm is also pinned exactly in `package.json`; local development is expected to use `nvm use`, and CI upgrades npm to the exact repo pin when the bundled npm version differs.
 - Copy `.dev.vars.example` to `.dev.vars` before running projects that need local secrets.
 - Use repo-pinned CLI tools through `npx`, including `npx wrangler` for Cloudflare-based experiments.
-- Start the stub Worker with `npm run dev`, then open `http://127.0.0.1:8787`.
+- Start the Worker with `npm run dev`, then open `http://127.0.0.1:8787`.
+- Deploy with `npm run deploy` before using the raffle with attendee phones on a public URL.
 - Rebuild the generated Tailwind stylesheet manually with `npm run build:css` when needed.
 
 ## Verification
@@ -56,11 +57,12 @@ To apply a kit to another repo:
 
 For existing projects where the right kit set is unclear, start with the negotiation prompt in `.capabilities/README.md`. It asks an agent to inspect the target repo, present a checkbox-style capability pull plan, and wait for approval before editing files.
 
-## Starter App
+## Raffle App
 
-- `GET /` serves a minimal editorial Worker stub with a route index and a primary health-probe link.
+- `GET /` serves the chromatic steampunk raffle room with host controls, a scannable QR join code, mobile audience registration, live entrant count, and winner display.
 - `GET /styles.css` serves the generated Tailwind stylesheet.
 - `GET /api/health` serves a JSON health response for smoke tests and tooling.
+- `/api/raffle/*` routes shared state through a Cloudflare Durable Object. The default room is `future-frontend-may-2026`; add `?room=<name>` to isolate rehearsals or repeated runs.
 
 ## Source Layout
 

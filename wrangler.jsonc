@@ -14,4 +14,18 @@
       "fallthrough": true,
     },
   ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "RAFFLE_ROOM",
+        "class_name": "RaffleRoom",
+      },
+    ],
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["RaffleRoom"],
+    },
+  ],
 }
